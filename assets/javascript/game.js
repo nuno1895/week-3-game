@@ -1,29 +1,32 @@
 
 var can_play = true;
 
-//results
+//results & variables
 var wins = 0;
 var winsHtml = document.getElementById("wins");
 var guessesLeft = 8;
 var guessHtml = document.getElementById("lives");
 var catergoryhtml = document.getElementById("catergory");
-var display_word = "";
+var wordHold= document.getElementById("wordHold");
 var used_letters = [];
-var usedHtml =document.getElementById("lettersUsed")
+var usedHtml =document.getElementById("lettersUsed");
 var letterCount;
-var lCountHtml =document.getElementById("letterCount")
-var gameHtml =document.getElementById("game")
+var lCountHtml =document.getElementById("letterCount");
+var gameHtml =document.getElementById("game");
 var topics;
 var topicsSelected;
 var wordSelected;
 var key;
+var startButton =document.getElementById("startButton");
+var play;
+var counter = 0;
+var winning =document.getElementById("youWin")
+var pickLetter =document.getElementById("pickLetter")
 
 console.log(wins);
-//letters
 
-var letters =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-console.log(letters[3]);
+var letterArray = ["a", "b" ,"c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m","n","o","p","q","r","s","t", "u", "v", "w", "x", "y", "z" ];
+			console.log(letterArray[4]);
 
 //on page load
 
@@ -34,51 +37,82 @@ window.onload = function(){
 	guessHtml.innerHTML = guessesLeft
 	winsHtml.innerHTML = wins
 
+
+	startButton.onclick =function(){
+
 	//computer selects word & category
-	play = function () {
-	   topics = [
-	       ["Superman", "Green-Lantern", "Batman", "Atom", "Blackest-Night", "Flash", "Teen-Titans"],
-	       ["Silk", "Runaways", "Wolverine", "Guardians of The Galaxy", "Spiderman"],
-	       ["Sheldon", "Penny", "Caltech", "Physics", "Howard"],
-	       ["Winter-Is-Coming", "Hodor", "Khalessi" , "Tyrion" , "Dragons"]
-	   ];
+		play = function () {
 
-	   console.log(topics[2]);
+			//object name of topic and array
+		   topics = {
+		       "DC Comics": ["Superman", "Robin", "Batman", "Atom", "Deadshot", "Flash", "Joker"],
+		       "Marvel Comics": ["Silk", "Runaways", "Wolverine", "Spiderman"],
+		       "Big Bang Theory": ["Sheldon", "Penny", "Caltech", "Physics", "Howard"],
+		       "Game of Thrones": ["Snow", "Hodor", "Khalessi" , "Tyrion" , "Dragons"]
+		   };
 
-	   topicsSelected = topics[Math.floor(Math.random() * topics.length)];
-	   		console.log(topicsSelected);
-	   wordSelected = topicsSelected[Math.floor(Math.random() * topicsSelected.length)];
-	   		console.log(wordSelected);
-	   	//replaces the - with a space
-	   wordSelected = wordSelected.replace(/\s/g, "-");
+		   //pull key catergory  from array
+			var topicArray = Object.keys(topics)
+			console.log("TopicArray:", topicArray)
 
-	   //prints how many letters in word
-	   letterCount = wordSelected.length;
-	   lCountHtml.innerHTML = letterCount;
-	   //prints Catergory
+			//selects string array
+			var catergory = topicArray[Math.floor(Math.random() * topicArray.length)];
+		   		console.log("Catergory to print on page:", catergory);
+		   		catergoryhtml.innerHTML = catergory;
 
-	   if (topicsSelected == topics[0]) {
-    		catergory.innerHTML = "DC Comics";
-    	}else if (topicsSelected == topics[1]) {
-    		catergory.innerHTML == "Marvel Comics";
-    	}else if (topicsSelected == topics[2]) {
-    		catergory.innerHTML == "Big Bang Thoery";
-    	}else if (topicsSelected == topics[3]) {
-    		catergory.innerHTML == "Game of Thrones";
-    	};
-	 };
-	 play(); //runs function
+		   	//picks the word array	
+		   	var wordArray = topics[catergory];
+		   		console.log("Word Array Picked:", wordArray);
+
+		   	//picks word in array	
+		   wordSelected = topics[wordArray];
+		   wordSelected = wordArray[Math.floor(Math.random() * wordArray.length)];
+		   			//makes it lower case
+		   	wordSelected = wordSelected.toLowerCase()	
+
+		   	//word selected
+		   		console.log("WordSelected:", wordSelected);
+		   		console.log(wordSelected.length);
+		   	
+		   letterCount = wordSelected.length;
+		   lCountHtml.innerHTML = letterCount;
+
+		   for(var x = 0; x < wordSelected.length; x++) {
+		   		wordHold.innerHTML += "<span>-" + "</span>"
+		   }
+	   
+		};
+		play(); //runs function
+	};	
+	 
 	
 	//key capture
 	document.onkeyup = function(event) {
+
 		key = event.key;
 		console.log(key);
-		//prints the user tries
-		used_letters.push(key);
-		usedHtml.innerHTML = used_letters;
+		console.log("key.code", event.which)
+		//prints the user tries only if they are actual letters
+		if (letterArray.indexOf(key) > -1){
+			used_letters.push(key);
+			usedHtml.innerHTML = used_letters;
+			//else it gives them the bad letter and and tells them to pick a letter
+			}else {
+				pickLetter.innerHTML = key + " IS NOT A LETTER";
+			};
+		
+
 		//confirms if letter is part of choice
-		if (wordSelected.indexOf(key) > -1) {
+		if ((wordSelected.indexOf(key) > -1) && (letterArray.indexOf(key) > -1)){
 			console.log("you got a letter");
+			counter++;
+			console.log(counter)
+
+		//fills in the word to the Spans	
+			for (var w = 0;  w < wordSelected.length; w++) {
+					wordHold.children[wordSelected.indexOf(key)].innerHTML = key;
+			};
+	
 		}else {
 			console.log("You didn't get a letter");
 			guessesLeft--;	
@@ -87,9 +121,16 @@ window.onload = function(){
 			
 			}else if (guessesLeft <= 0) {
 				gameHtml.innerHTML = "You Lose";
-			};
-				
+			};	
 		};
+
+		//checks to see if the number of counters which is letters right matches the length if so it will prop You win and count one win
+		
+		if (counter == wordSelected.length){
+			wins++;
+			winning.innerHTML = "You Win";
+		};
+
 	};	
 
 	
