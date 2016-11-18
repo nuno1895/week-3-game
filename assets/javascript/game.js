@@ -45,7 +45,7 @@ window.onload = function(){
 			used_letters = [];
 			winning.innerHTML ="";
 			images.innerHTML="";
-			guessesLeft.innerHTML = 8;
+			
 			//object name of topic and array
 		   topics = {
 		       "DC Comics": ["Superman", "Robin", "Batman", "Aquaman", "Supergirl", "Flash", "Joker"],
@@ -171,7 +171,7 @@ window.onload = function(){
 			winning.innerHTML = "You Win";
 			var bazinga = new Audio("assets/audio/bazinga.mp3");
 				bazinga.play();
-				
+			guessesLeft.innerHTML = 8;	
 			delay=1500; //1.5 seconds
 
 			setTimeout(function() {

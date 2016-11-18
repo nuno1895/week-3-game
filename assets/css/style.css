@@ -9,7 +9,7 @@ body {
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	/*background-image: url("../images/cork-walletBG.png");*/
 	line-height: 30px;
-	background-color: #EE6939;
+	background-image: url("../images/bg.jpg");
 	color: black;
 	letter-spacing: 3px;
 }
@@ -66,31 +66,103 @@ h2#wordHold span {
 
 #header h1{
 	color: #fff;
-	background-color: #474747;
 	text-shadow: #fff 0 0 10px;
-	font-size: 75px;
+	font-size: 100px;
+	letter-spacing: 5px;
 }
 
 #images img {
-	width:550px;
+	width:650px;
 	height:300px;
 
 }
+#lettersUsed {
+	color:red;
+	font-size: 45px;
+}
+span {
+	color:red;
+	font-size: 45px;
+}
 
+#youWin {
+	color:red;
+	font-size: 80px;
+}
 
 button{
 	padding: 20px;
 	font-size: 20px;
 	margin: 30px;
+	color: white;
+	background-color:#567298; 
+	font-family: 'Bangers', cursive;, Times, Times New Roman, serif;
+	letter-spacing: 3px;
 }
 
 input[type=button] {
-    background-color: #4CAF50;
+    background-color: #567298;
     border: none;
     color: white;
+    font-family: 'Bangers', cursive;, Times, Times New Roman, serif;
     padding: 20px;
     font-size: 20px;
     text-decoration: none;
     cursor: pointer;
     margin: 30px;
+    letter-spacing: 3px;
 }
+
+@media screen and (max-width: 980px) {
+	
+	#wrapper {
+		width: 100%;
+	}
+	.container {
+		width: 100%;
+		
+	}
+
+	section {
+		width: 100%;
+
+	}
+
+}		
+
+@media screen and (max-width: 768px) {
+	#wrapper {
+		width: 100%;
+	}
+	.container {
+		width: 100%;
+
+	}
+
+	section {
+		width: 100%;
+
+	}
+
+		
+}
+	/*cell phone size*/
+
+@media screen and (max-width: 640px) {
+		
+			
+	.container {
+		width: 100%;
+		
+	}
+	#wrapper {
+		width: 100%;	
+	}
+
+	section {
+		width: 100%;
+
+	}
+
+}
+		
