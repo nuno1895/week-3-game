@@ -135,20 +135,17 @@ window.onload = function(){
 
 		//fills in the word to the Spans	
 
-		for(var w = 0; w < wordSelected.length; w++) {
-            if(wordSelected[w].indexOf(key) != -1) {
-                wordHold.children[w].innerHTML = key; 
+			for(var w = 0; w < wordSelected.length; w++) {
+	            if(wordSelected[w].indexOf(key) != -1) {
+	                wordHold.children[w].innerHTML = key; 
 
-                counter++;  
-                console.log(counter); 
-            };
-        };
-			
-			// wordHold.children[wordSelected.indexOf(key)].innerHTML = key;	
-
-
-			// if (wordHold.children[wordHold.indexOf("-")])
-	
+	                if (used_letters.indexOf(key) != -1){
+	                counter++;  
+	                console.log(counter); 
+	            	};
+	            	};
+	     		};	
+					
 		}else {
 			console.log("You didn't get a letter");
 			guessesLeft--;	
@@ -159,12 +156,13 @@ window.onload = function(){
 				gameHtml.innerHTML = "You Lose";
 				var murloc = new Audio("assets/audio/murloc.mp3");
 				murloc.play();
+
 				delay=2000; //1.5 seconds
 
-			setTimeout(function() {
-			  window.location.reload();
-			}, delay);
-				
+				setTimeout(function() {
+				  window.location.reload();
+				}, delay);
+			
 			};	
 		};
 
