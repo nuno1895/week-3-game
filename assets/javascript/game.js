@@ -116,33 +116,24 @@ window.onload = function(){
 		key = event.key;
 		console.log(key);
 
-
-		if (letterArray.indexOf(key) > -1) {
-
-			used_letters.push(key);
-			usedHtml.innerHTML = used_letters;
-			//else it gives them the bad letter and and tells them to pick a letter
-			}else {
-				pickLetter.innerHTML = key + " IS NOT A LETTER";
-				
-			};
 		
 
 		//confirms if letter is part of choice
 		if ((wordSelected.indexOf(key) > -1) && (letterArray.indexOf(key) > -1)){
 			console.log("you got a letter");
-			
+			used_letters.push(key);
+			usedHtml.innerHTML = used_letters;
 
 		//fills in the word to the Spans	
 
 			for(var w = 0; w < wordSelected.length; w++) {
 	            if(wordSelected[w].indexOf(key) != -1) {
 	                wordHold.children[w].innerHTML = key; 
-
-	                if (used_letters.indexOf(key) != -1){
+	                console.log(used_letters.indexOf(key));	
+	                // if (used_letters.indexOf(key) === -1){
 	                counter++;  
 	                console.log(counter); 
-	            	};
+	            	// };
 	            	};
 	     		};	
 					
