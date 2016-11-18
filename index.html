@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Big Nerd Hnagman</title>
+	<title>Big Nerd Hangman</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
 </head>
 <body>
 
 	<div id="wrapper">
 		<div class="container">
 			<div id="header">
-				<h1>Big Nerd Hangman</h1>
+				<h1>BIG NERD HANGMAN</h1>
 			</div>
 			<section id ="displayResults">
-				<h2><button id="startButton">Please Press to get Started</button></h2>
+				<button id="startButton">Please Press to get Started</button>
+
+			
+				<div id="images"></div>
+
+				<h2>This is your catergory: <span id ="catergory"></span></h2>
+
+				<h2>This Word has <span id="letterCount"></span> letters</h2>
+			
 				<!-- tracks number of wins -->
-				<p>Wins: <span id="wins"> 0</span></p>
-				
-				<h1 id="youWin"></h1>
-
+		
 				<!-- Tracks number of lives -->
-				<p id="game">You have <span id="lives">0</span> guess left!</p>
+				<h2 id="game">You have <span id="lives">0</span> guess left!</h2>
 				<!-- Tells you your random catergory -->
-				<p>This is your catergory: <span id ="catergory"></span>
-
-				<p>This Word has <span id="letterCount"></span> letters</p>
+			
 
 				<h2 id="wordHold"></h2>
 
 				<h2 id="pickLetter"></h2>
 
-				<h3 id="lettersUsed"></h3>
-			
-			<section id ="bottomPicture">
-			<div id="Images"></div>
+				<h2 id="lettersUsed"></h2>
 				
+				<h2>Wins: <span id="wins"> 0</span></h2>
+				
+				<h2 id="youWin"></h2>
+
+			
 			</section>
-
-
+			
+			<div>
+			<input type="button" value="Hit This Button To Start All Over" onClick="window.location.reload()">
+			</div>
 		</div>
 
-
+			
 
 	</div>
 

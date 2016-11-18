@@ -1,5 +1,4 @@
 
-var can_play = true;
 
 //results & variables
 var wins = 0;
@@ -18,15 +17,15 @@ var topicsSelected;
 var wordSelected;
 var key;
 var startButton =document.getElementById("startButton");
+var pageReload =document.getElementById("pageReload")
 var play;
 var counter = 0;
-var winning =document.getElementById("youWin")
-var pickLetter =document.getElementById("pickLetter")
-
-console.log(wins);
-
+var winning =document.getElementById("youWin");
+var pickLetter =document.getElementById("pickLetter");
+var images =document.getElementById("images")
+var deley;
 var letterArray = ["a", "b" ,"c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m","n","o","p","q","r","s","t", "u", "v", "w", "x", "y", "z" ];
-			console.log(letterArray[4]);
+			
 
 //on page load
 
@@ -41,12 +40,16 @@ window.onload = function(){
 	startButton.onclick =function(){
 
 	//computer selects word & category
-		play = function () {
-
+		playGame = function () {
+			counter = 0;
+			used_letters = [];
+			winning.innerHTML ="";
+			images.innerHTML="";
+			guessesLeft.innerHTML = 8;
 			//object name of topic and array
 		   topics = {
-		       "DC Comics": ["Superman", "Robin", "Batman", "Atom", "Deadshot", "Flash", "Joker"],
-		       "Marvel Comics": ["Silk", "Runaways", "Wolverine", "Spiderman"],
+		       "DC Comics": ["Superman", "Robin", "Batman", "Aquaman", "Supergirl", "Flash", "Joker"],
+		       "Marvel Comics": ["Daredevil", "Thor", "Wolverine", "Spiderman"],
 		       "Big Bang Theory": ["Sheldon", "Penny", "Caltech", "Physics", "Howard"],
 		       "Game of Thrones": ["Snow", "Hodor", "Khalessi" , "Tyrion" , "Dragons"]
 		   };
@@ -76,13 +79,34 @@ window.onload = function(){
 		   	
 		   letterCount = wordSelected.length;
 		   lCountHtml.innerHTML = letterCount;
+		   wordHold.innerHTML = '';
 
+		   //creates empty letter space for word based on length
 		   for(var x = 0; x < wordSelected.length; x++) {
 		   		wordHold.innerHTML += "<span>-" + "</span>"
-		   }
-	   
+		   };
+
+		   //Selects picture
+	
+		   if (catergory == "Big Bang Theory"){
+		   	var img = document.createElement("img");
+			img.src = "assets/images/bigbanner.jpg";
+			images.appendChild(img);
+			}else if (catergory == "DC Comics"){
+		  	img = document.createElement("img");
+			img.src = "assets/images/dc.jpg";
+			images.appendChild(img);
+			}else if (catergory == "Game of Thrones"){
+		  	img = document.createElement("img");
+			img.src = "assets/images/game.jpg";
+			images.appendChild(img);
+			}else if (catergory == "Marvel Comics"){
+		  	img = document.createElement("img");
+			img.src = "assets/images/marvel.png";
+			images.appendChild(img);
+			};
 		};
-		play(); //runs function
+		playGame(); //runs function
 	};	
 	 
 	
@@ -91,27 +115,39 @@ window.onload = function(){
 
 		key = event.key;
 		console.log(key);
-		console.log("key.code", event.which)
-		//prints the user tries only if they are actual letters
-		if (letterArray.indexOf(key) > -1){
+
+
+		if (letterArray.indexOf(key) > -1) {
+
 			used_letters.push(key);
 			usedHtml.innerHTML = used_letters;
 			//else it gives them the bad letter and and tells them to pick a letter
 			}else {
 				pickLetter.innerHTML = key + " IS NOT A LETTER";
+				
 			};
 		
 
 		//confirms if letter is part of choice
 		if ((wordSelected.indexOf(key) > -1) && (letterArray.indexOf(key) > -1)){
 			console.log("you got a letter");
-			counter++;
-			console.log(counter)
+			
 
 		//fills in the word to the Spans	
-			for (var w = 0;  w < wordSelected.length; w++) {
-					wordHold.children[wordSelected.indexOf(key)].innerHTML = key;
-			};
+
+		for(var w = 0; w < wordSelected.length; w++) {
+            if(wordSelected[w].indexOf(key) != -1) {
+                wordHold.children[w].innerHTML = key; 
+
+                counter++;  
+                console.log(counter); 
+            };
+        };
+			
+			// wordHold.children[wordSelected.indexOf(key)].innerHTML = key;	
+
+
+			// if (wordHold.children[wordHold.indexOf("-")])
 	
 		}else {
 			console.log("You didn't get a letter");
@@ -121,6 +157,14 @@ window.onload = function(){
 			
 			}else if (guessesLeft <= 0) {
 				gameHtml.innerHTML = "You Lose";
+				var murloc = new Audio("assets/audio/murloc.mp3");
+				murloc.play();
+				delay=2000; //1.5 seconds
+
+			setTimeout(function() {
+			  window.location.reload();
+			}, delay);
+				
 			};	
 		};
 
@@ -128,10 +172,36 @@ window.onload = function(){
 		
 		if (counter == wordSelected.length){
 			wins++;
+			document.querySelector("#wins").innerHTML = wins
 			winning.innerHTML = "You Win";
+			var bazinga = new Audio("assets/audio/bazinga.mp3");
+				bazinga.play();
+				
+			delay=1500; //1.5 seconds
+
+			setTimeout(function() {
+			  playGame();
+			}, delay);
+
+		if (wins == 5) {
+		document.querySelector("#wins").innerHTML = wins
+			winning.innerHTML = "BIG NERD!!!!!";
+			var nerd = new Audio("assets/audio/nerd.mp3");
+				nerd.play();	
+			delay=4000; //4 seconds
+
+			setTimeout(function() {
+			  window.location.reload();
+			}, delay);
+		};	
+			
 		};
+
+		
 
 	};	
 
 	
-}
+		
+};
+
