@@ -116,30 +116,36 @@ window.onload = function(){
 		key = event.key;
 		console.log(key);
 
-		
 
 		//confirms if letter is part of choice
 		if ((wordSelected.indexOf(key) > -1) && (letterArray.indexOf(key) > -1)){
 			console.log("you got a letter");
-			used_letters.push(key);
-			usedHtml.innerHTML = used_letters;
 
 		//fills in the word to the Spans	
 
 			for(var w = 0; w < wordSelected.length; w++) {
 	            if(wordSelected[w].indexOf(key) != -1) {
-	                wordHold.children[w].innerHTML = key; 
-	                console.log(used_letters.indexOf(key));	
-	                // if (used_letters.indexOf(key) === -1){
-	                counter++;  
-	                console.log(counter); 
-	            	// };
+	                wordHold.children[w].innerHTML = key;
+
+	                //counter counts same key over and over again and you win if it is a letter in the work
+			                counter++;  
+			                console.log(counter); 
 	            	};
 	     		};	
 					
-		}else {
+		}else if (letterArray.indexOf(key) > -1) {
 			console.log("You didn't get a letter");
-			guessesLeft--;	
+			used_letters.push(key);
+			
+			
+			//Broken area does not count dulipcate keys
+				if (used_letters.indexOf(key) != - 1){
+				usedHtml.innerHTML = used_letters;	
+				guessesLeft--;
+				};	
+				
+
+
 			if (guessesLeft > 0) {
 				guessHtml.innerHTML = guessesLeft;
 			
@@ -153,8 +159,8 @@ window.onload = function(){
 				setTimeout(function() {
 				  window.location.reload();
 				}, delay);
+			};
 			
-			};	
 		};
 
 		//checks to see if the number of counters which is letters right matches the length if so it will prop You win and count one win
