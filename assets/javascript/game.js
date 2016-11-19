@@ -25,7 +25,8 @@ var pickLetter =document.getElementById("pickLetter");
 var images =document.getElementById("images")
 var deley;
 var letterArray = ["a", "b" ,"c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m","n","o","p","q","r","s","t", "u", "v", "w", "x", "y", "z" ];
-			
+var goodLetters =[];	
+var index;		
 
 //on page load
 
@@ -126,10 +127,19 @@ window.onload = function(){
 			for(var w = 0; w < wordSelected.length; w++) {
 	            if(wordSelected[w].indexOf(key) != -1) {
 	                wordHold.children[w].innerHTML = key;
+							
+	                	
+	                		index = wordSelected.indexOf(key);
+	       					console.log(index);
+							goodLetters[wordSelected.indexOf(key)] = key;
 
-	                //counter counts same key over and over again and you win if it is a letter in the work
-			                counter++;  
-			                console.log(counter); 
+							console.log(wordSelected.indexOf(key));
+							var lettersWord = wordSelected.split("");
+
+							console.log("Good Letters: " + goodLetters + "lettersWord: "+ lettersWord);
+							
+			                // counter++;  
+			                // console.log(counter); 
 	            	};
 	     		};	
 					
@@ -165,18 +175,23 @@ window.onload = function(){
 
 		//checks to see if the number of counters which is letters right matches the length if so it will prop You win and count one win
 		
-		if (counter == wordSelected.length){
-			wins++;
-			document.querySelector("#wins").innerHTML = wins
-			winning.innerHTML = "You Win";
-			var bazinga = new Audio("assets/audio/bazinga.mp3");
-				bazinga.play();
-			guessesLeft.innerHTML = 8;	
-			delay=1500; //1.5 seconds
+		// if (counter == wordSelected.length){
+		// 	wins++;
+							if (lettersWord.toString() == goodLetters.toString()){
+		                //counter counts same key over and over again and you win if it is a letter in the work
+		            		wins ++;
+		            		document.querySelector("#wins").innerHTML = wins
+		            		winning.innerHTML = "You Win";
+		            		var bazinga = new Audio("assets/audio/bazinga.mp3");
+		            			bazinga.play();
+		            		guessesLeft.innerHTML = 8;	
+		            		delay=1500; //1.5 seconds
 
-			setTimeout(function() {
-			  playGame();
-			}, delay);
+		            		setTimeout(function() {
+		            		  playGame();
+		            		}, delay);
+
+		            		};	
 
 		if (wins == 5) {
 		document.querySelector("#wins").innerHTML = wins
@@ -190,7 +205,7 @@ window.onload = function(){
 			}, delay);
 		};	
 			
-		};
+		
 
 		
 
